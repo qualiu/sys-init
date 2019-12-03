@@ -1,0 +1,31 @@
+fcf=git status | msr -t "^\s*modified:\s*(.+?)\s*$" -o "fix-file-style \1" $*
+
+fcm=d:\opengit\msrTools\code\fix-last-committed-file-styles.bat $*
+
+ffs=fix-file-style.bat $*
+
+gpc=git rev-parse --abbrev-ref HEAD | msr -t "(.+)" -o "git pull origin \1" -XM
+
+gph=git branch | msr -t "^\s*\*\s*(\S+).*" -o "git push origin \1 $*" -XM
+
+gsh=git rev-parse --abbrev-ref HEAD | msr -t "(.+)" -o "git reset --hard origin/\1" -XM
+
+gpm=git pull origin master
+
+gcm=git commit --amend --no-edit
+
+gdc=git rev-parse --abbrev-ref HEAD | msr -t .+ -o "git difftool origin/$0 $*" -XA
+
+gdf=git difftool $1 --name-only | msr -t .+ -o "git difftool $1 $0" $2 $3 $4 $5 $6 $7 $8 $9
+
+git-content=git grep $*
+
+git-gc=git reflog expire --all --expire=now && git gc --prune=now --aggressive
+
+git-log=git log | msr -b "^commit \w+$" -Q "" -y -a -PI $*
+
+show-ft=git diff $1 --name-only | msr -S -t "[\r\n]+" -o "," -PAC | msr -t .+ -o "msr -l --wt --sz -p $0 -M $2 $3 $4 $5 $6 $7 $8 $9" -XA
+
+open-cf=for /f "tokens=*" %a in ('git rev-parse --show-toplevel') do git diff $1 --name-only | msr -t "(.+)" -o "%a/\1" -PAC | msr -t "(.+)" -o "code \1" $2 $3 $4 $5 $6 $7 $8 $9
+
+opp=d:\opengit\msrTools\open-git-page.bat $*

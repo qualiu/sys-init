@@ -1,0 +1,31 @@
+alias=doskey /macros 2>&1 | msr -PI -t "^($1)" $2 $3 $4 $5 $6 $7 $8 $9
+
+malias=doskey /macros 2>&1 | msr -PI -t "^($1)" $2 $3 $4 $5 $6 $7 $8 $9
+
+open-doskeys=code D:\tools\msr-cmd-alias.doskeys
+
+update-doskeys=doskey /MACROFILE=D:\tools\msr-cmd-alias.doskeys
+
+towp=msr -PAC -lp $*
+
+tofp=msr -PACW -lp $*
+
+pydoc-check=for /f "tokens=*" %a in ('git rev-parse --show-toplevel') do git diff --name-only origin/master *.py | msr -t "(.+)" -o "pydocstyle %a/\1" -PAC | msr $*
+
+msbd=echo msbuild /v:q /t:Build /p:Configuration=Debug /p:Platform="Any CPU" /m:%NUMBER_OF_PROCESSORS% $* | msr -XM
+
+msbd1=echo msbuild /v:q /t:Build /p:Configuration=Debug /p:Platform="Any CPU" /p:ContinueOnError=false /p:StopOnFirstFailure=true /p:BuildInParallel=false /m:%NUMBER_OF_PROCESSORS% $* | msr -XM
+
+msrbd=echo msbuild /v:q /t:Rebuild /p:Configuration=Debug /p:Platform="Any CPU" /m:%NUMBER_OF_PROCESSORS% $* | msr -XM
+
+msrbd1=echo msbuild /v:q /t:Rebuild /p:Configuration=Debug /p:Platform="Any CPU" /p:ContinueOnError=false /p:StopOnFirstFailure=true /p:BuildInParallel=false /m:%NUMBER_OF_PROCESSORS% $* | msr -XM
+
+npm-gf=npm get prefix | msr -t .+ -o "dir /A:D /b \"$0\\node_modules\"" -XA | msr -it $*
+
+npm-install-dev=msr -rp . --nd "^([\.\$]|(Release|Debug|objd?|bin|node_modules|static|dist|target|(Js)?Packages|\w+-packages?)$|__pycache__)" -f "\.tsx?$" -t "^import\s+.*?from\s+(\W)(@[\w\./-]+)\1.*" -o "\2" -PAC | nin nul -uiPAC | msr -t .+ -o "npm install $0 $*" -X
+
+pip-update=pip list --outdated | msr -t "^(\w+\S*).*" -o "\1" -PAC --nt "^Package" | msr -PAC $* | msr -S -t "\s+" -o " " -PAC | msr -t "(.+)" -o "pip install --upgrade \1" -X
+
+pip-upgrade=python -m ensurepip && python -m pip install --upgrade pip
+
+run-cmd-at-sub=powershell "$runTime=[DateTime]::Parse('$1'); $sleepTime = [Math]::Max(0, $($runTime -[DateTime]::Now).TotalSeconds - $2); Write-Host -ForegroundColor Green $([DateTime]::Now).ToString('o') ' Will sleep' $sleepTime 'seconds and run at time:' $runTime.ToString('o'); Start-Sleep -Seconds $sleepTime; Write-Host -ForegroundColor Cyan $([DateTime]::Now).ToString('o')" && $3 $4 $5 $6 $7 $8 $9 & powershell "Write-Host -ForegroundColor Cyan $([DateTime]::Now).ToString('o')"

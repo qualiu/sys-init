@@ -1,0 +1,58 @@
+
+find-all=msr -rp . --nd "^([\.\$]|(Release|Debug|objd?|bin|node_modules|static|dist|target|(Js)?Packages|\w+-packages?)$|__pycache__)" -f "\.(cs(html)?|cpp|cxx|h|hpp|cc?|c\+{2}|\w+proj|sln|nuspec|config|props|java|scala|py|go|php|vue|tsx?|jsx?|json|ya?ml|xml|ini|md|ipynb)$|^readme|^make\w+$" --xd --s1 1B --s2 3.6MB -I $*
+
+find-all-def=msr -rp . --nd "^([\.\$]|(Release|Debug|objd?|bin|node_modules|static|dist|target|(Js)?Packages|\w+-packages?)$|__pycache__)" -f "\.(cs(html)?|cpp|cxx|h|hpp|cc?|c\+{2}|java|scala|py|go|php|vue|tsx?|jsx?)$" --xd --s1 1B --s2 3.6MB -I --nt "^\s*(return|await|throw|except|raise|new|(el)?if|for|from|val)\s+" -t "^\s*(#\s*define\s+|(p\w+|internal|readonly|const|static)\s+[\w\s]*?)\b($1)\b|^\s*\w+[^=\(\./#;:]+\s+($1)\s*(?:[\(\{:<]|extends|implements|$)" $2 $3 $4 $5 $6 $7 $8 $9
+
+find-code=msr -rp . --nd "^([\.\$]|(Release|Debug|objd?|bin|node_modules|static|dist|target|(Js)?Packages|\w+-packages?)$|__pycache__)" -f "\.(cs(html)?|cpp|cxx|h|hpp|cc?|c\+{2}|java|scala|py|go|php|vue|tsx?|jsx?)$" --xd --s1 1B --s2 3.6MB -I $*
+
+find-config=msr -rp . --nd "^([\.\$]|(Release|Debug|objd?|bin|node_modules|static|dist|target|(Js)?Packages|\w+-packages?)$|__pycache__)" -f "\.(config|json|ya?ml|xml|ini)$" --xd --s1 1B --s2 3.6MB -I $*
+
+find-cpp=msr -rp . --nd "^([\.\$]|(Release|Debug|objd?|bin|node_modules|static|dist|target|(Js)?Packages|\w+-packages?)$|__pycache__)" -f "\.(cpp|cxx|h|hpp|cc?|c\+{2})$" --xd --s1 1B --s2 3.6MB -I $*
+
+find-cpp-def=msr -rp . --nd "^([\.\$]|(Release|Debug|objd?|bin|node_modules|static|dist|target|(Js)?Packages|\w+-packages?)$|__pycache__)" -f "\.(cpp|cxx|h|hpp|cc?|c\+{2})$" --xd --s1 1B --s2 3.6MB -I --nt "^\s*(return|throw|new|case)\s+" -t "^\s*(#\s*define\s+|(p\w+|internal|readonly|const|static)\s+[\w\s]*?)\b($1)\b|^\s*\w+[^=\(\./#;:]+\s+($1)\s*(?:[\(\{:<]|extends|implements|$)" $2 $3 $4 $5 $6 $7 $8 $9
+
+find-cpp-ref=msr -rp . --nd "^([\.\$]|(Release|Debug|objd?|bin|node_modules|static|dist|target|(Js)?Packages|\w+-packages?)$|__pycache__)" -f "\.(cpp|cxx|h|hpp|cc?|c\+{2})$" --xd --s1 1B --s2 3.6MB -I -t "\b$1\b" $2 $3 $4 $5 $6 $7 $8 $9
+
+find-cs=msr -rp . --nd "^([\.\$]|(Release|Debug|objd?|bin|node_modules|static|dist|target|(Js)?Packages|\w+-packages?)$|__pycache__)" -f "\.(cs(html)?)$" --xd --s1 1B --s2 3.6MB -I $*
+
+find-cs-def=msr -rp . --nd "^([\.\$]|(Release|Debug|objd?|bin|node_modules|static|dist|target|(Js)?Packages|\w+-packages?)$|__pycache__)" -f "\.(cs(html)?)$" --xd --s1 1B --s2 3.6MB -I --nt "^\s*(return|await|throw|except|raise|new|(el)?if|for|from|val)\s+|^\s*p\w+\s+$1\s*\(" -t "^\s*(#\s*define\s+|(p\w+|internal|readonly|const|static)\s+[\w\s]*?)\b($1)\b|^\s*\w+[^=\(\./#;:]+\s+($1)\s*(?:[\(\{:<]|extends|implements|$)" $2 $3 $4 $5 $6 $7 $8 $9
+
+find-cs-ref=msr -rp . --nd "^([\.\$]|(Release|Debug|objd?|bin|node_modules|static|dist|target|(Js)?Packages|\w+-packages?)$|__pycache__)" -f "\.(cs(html)?)$" --xd --s1 1B --s2 3.6MB -I -t "\b$1\b" $2 $3 $4 $5 $6 $7 $8 $9
+
+find-def=msr -rp . --nd "^([\.\$]|(Release|Debug|objd?|bin|node_modules|static|dist|target|(Js)?Packages|\w+-packages?)$|__pycache__)" -f "\.(cs(html)?|cpp|cxx|h|hpp|cc?|c\+{2}|java|scala|py|go|php|vue|tsx?|jsx?)$" --xd --s1 1B --s2 3.6MB -I --nt "^\s*(return|await|throw|except|raise|new|(el)?if|for|from|val)\s+|^\s*p\w+\s+$1\s*\(" -t "^\s*(#\s*define\s+|(p\w+|internal|readonly|const|static)\s+[\w\s]*?)\b($1)\b|^\s*\w+[^=\(\./#;:]+\s+($1)\s*(?:[\(\{:<]|extends|implements|$)" $2 $3 $4 $5 $6 $7 $8 $9
+
+find-doc=msr -rp . --nd "^([\.\$]|(Release|Debug|objd?|bin|node_modules|static|dist|target|(Js)?Packages|\w+-packages?)$|__pycache__)" -f "\.(md|ipynb)$|^readme" --xd --s1 1B --s2 3.6MB -I $*
+
+find-java=msr -rp . --nd "^([\.\$]|(Release|Debug|objd?|bin|node_modules|static|dist|target|(Js)?Packages|\w+-packages?)$|__pycache__)" -f "\.(java|scala)$" --xd --s1 1B --s2 3.6MB -I $*
+
+find-java-def=msr -rp . --nd "^([\.\$]|(Release|Debug|objd?|bin|node_modules|static|dist|target|(Js)?Packages|\w+-packages?)$|__pycache__)" -f "\.(java|scala)$" --xd --s1 1B --s2 3.6MB -I --nt "^\s*(return|await|throw|except|raise|new|(el)?if|for|from|val)\s+|^\s*p\w+\s+$1\s*\(" -t "^\s*(#\s*define\s+|(p\w+|internal|readonly|const|static)\s+[\w\s]*?)\b($1)\b|^\s*\w+[^=\(\./#;:]+\s+($1)\s*(?:[\(\{:<]|extends|implements|$)" $2 $3 $4 $5 $6 $7 $8 $9
+
+find-java-ref=msr -rp . --nd "^([\.\$]|(Release|Debug|objd?|bin|node_modules|static|dist|target|(Js)?Packages|\w+-packages?)$|__pycache__)" -f "\.(java|scala)$" --xd --s1 1B --s2 3.6MB -I -t "\b$1\b" $2 $3 $4 $5 $6 $7 $8 $9
+
+find-nd=msr -rp . --nd "^([\.\$]|(Release|Debug|objd?|bin|node_modules|static|dist|target|(Js)?Packages|\w+-packages?)$|__pycache__)"  $*
+
+find-ndp=msr -rp $1 --nd "^([\.\$]|(Release|Debug|objd?|bin|node_modules|static|dist|target|(Js)?Packages|\w+-packages?)$|__pycache__)" $2 $3 $4 $5 $6 $7 $8 $9
+
+find-pure-ref=msr -rp . --nd "^([\.\$]|(Release|Debug|objd?|bin|node_modules|static|dist|target|(Js)?Packages|\w+-packages?)$|__pycache__)" -f "\.(cs(html)?|cpp|cxx|h|hpp|cc?|c\+{2}|java|scala|py|go|php|vue|tsx?|jsx?)$" --xd --s1 1B --s2 3.6MB -I --nt "^\s*(#|/|:|\*|(or|from|import)\s+)|^.{260,}" -t "\b$1\b" $2 $3 $4 $5 $6 $7 $8 $9
+
+find-py=msr -rp . --nd "^([\.\$]|(Release|Debug|objd?|bin|node_modules|static|dist|target|(Js)?Packages|\w+-packages?)$|__pycache__)" -f "\.(py)$" --xd --s1 1B --s2 3.6MB -I $*
+
+find-py-def=msr -rp . --nd "^([\.\$]|(Release|Debug|objd?|bin|node_modules|static|dist|target|(Js)?Packages|\w+-packages?)$|__pycache__)" -f "\.(py)$" --xd --s1 1B --s2 3.6MB -I --nt "^\s*(return|await|throw|except|raise|new|(el)?if|for|from|val)\s+|^\s*p\w+\s+$1\s*\(" -t "^\s*(#\s*define\s+|(p\w+|internal|readonly|const|static)\s+[\w\s]*?)\b($1)\b|^\s*\w+[^=\(\./#;:]+\s+($1)\s*(?:[\(\{:<]|extends|implements|$)" $2 $3 $4 $5 $6 $7 $8 $9
+
+find-py-ref=msr -rp . --nd "^([\.\$]|(Release|Debug|objd?|bin|node_modules|static|dist|target|(Js)?Packages|\w+-packages?)$|__pycache__)" -f "\.(py)$" --xd --s1 1B --s2 3.6MB -I -t "\b$1\b" $2 $3 $4 $5 $6 $7 $8 $9
+
+find-ref=msr -rp . --nd "^([\.\$]|(Release|Debug|objd?|bin|node_modules|static|dist|target|(Js)?Packages|\w+-packages?)$|__pycache__)" -f "\.(cs(html)?|cpp|cxx|h|hpp|cc?|c\+{2}|java|scala|py|go|php|vue|tsx?|jsx?)$" --xd --s1 1B --s2 3.6MB -I -t "\b$1\b" $2 $3 $4 $5 $6 $7 $8 $9
+
+find-script=msr -rp . --nd "^([\.\$]|(Release|Debug|objd?|bin|node_modules|static|dist|target|(Js)?Packages|\w+-packages?)$|__pycache__)" -f "\.(bat|cmd|psm?1|sh|bash|[kzct]sh)$" --xd --s1 1B --s2 3.6MB -I $*
+
+find-small=msr -rp . --nd "^([\.\$]|(Release|Debug|objd?|bin|node_modules|static|dist|target|(Js)?Packages|\w+-packages?)$|__pycache__)" --xd --s1 1B --s2 1.6MB -I $*
+
+find-ui=msr -rp . --nd "^([\.\$]|(Release|Debug|objd?|bin|node_modules|static|dist|target|(Js)?Packages|\w+-packages?)$|__pycache__)" -f "\.(vue|tsx?|jsx?)$" --xd --s1 1B --s2 3.6MB -I $*
+
+find-ui-def=msr -rp . --nd "^([\.\$]|(Release|Debug|objd?|bin|node_modules|static|dist|target|(Js)?Packages|\w+-packages?)$|__pycache__)" -f "\.(vue|tsx?|jsx?)$" --xd --s1 1B --s2 3.6MB -I --nt "^\s*(return|await|throw|except|raise|new|(el)?if|for|from|val)\s+" -t "^\s*((p\w+|internal|readonly|const|static|function)\s+[\w\s]*?)\b($1)\b|^\s*\w+[^=\(\./#;:]+\s+($1)\s*(?:[\(\{:<]|extends|implements|$)" $2 $3 $4 $5 $6 $7 $8 $9
+
+find-ui-ref=msr -rp . --nd "^([\.\$]|(Release|Debug|objd?|bin|node_modules|static|dist|target|(Js)?Packages|\w+-packages?)$|__pycache__)" -f "\.(vue|tsx?|jsx?)$" --xd --s1 1B --s2 3.6MB -I -t "\b$1\b" $2 $3 $4 $5 $6 $7 $8 $9
+
+out-fp=msr -p D:\tools\msr-cmd-alias.doskeys -x find- --nt "use-[wr]p|out-[fr]p|find-ndp|\s+-W\s+" -t "(=msr -rp.*?\S+)" -o "\1 -W" -R -c Output full path. & doskey /MACROFILE=D:\tools\msr-cmd-alias.doskeys
+
+out-rp=msr -p D:\tools\msr-cmd-alias.doskeys -x find- -t "(=msr -rp.*?)\s+-W\s+" -o "\1 " --nt "use-[wr]p|out-[fr]p|find-ndp" -R -c Output relative path. & doskey /MACROFILE=D:\tools\msr-cmd-alias.doskeys

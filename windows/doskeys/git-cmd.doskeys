@@ -10,9 +10,11 @@ gph=git branch | msr -t "^\s*\*\s*(\S+).*" -o "git push origin \1 $*" -XM
 
 gsh=git rev-parse --abbrev-ref HEAD | msr -t "(.+)" -o "git reset --hard origin/\1" -XM
 
-gpm=git pull origin master
+gpm=git pull origin master $*
 
-gcm=git commit --amend --no-edit
+gcm=git commit --amend --no-edit $*
+
+git-am=git commit --amend $*
 
 gdc=git rev-parse --abbrev-ref HEAD | msr -t .+ -o "git difftool origin/$0 $*" -XA
 

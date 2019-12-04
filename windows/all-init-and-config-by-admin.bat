@@ -1,4 +1,10 @@
 @echo off
+
+whoami /groups | findstr /I BUILTIN\Administrators | findstr /I Enabled >nul || (
+    echo %0 should be run as 'Administrator' role to install softwares.
+    exit /b -1
+)
+
 call %~dp0\set-env.bat || exit /b -1
 call %~dp0\install-choco.bat || exit /b -1
 call %~dp0\install-by-admin.bat || exit /b -1

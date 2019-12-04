@@ -22,12 +22,12 @@ where msr.exe /q 2>nul || (
 )
 
 if not exist "%ToolFolder%\msr.exe" (
-    wget "https://raw.githubusercontent.com/qualiu/msr/master/tools/msr.exe" -O "%ToolFolder%\msr.exe.tmp" || exit /b -1
+    powershell "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Invoke-WebRequest -Uri https://github.com/qualiu/msr/blob/master/tools/msr.exe?raw=true -OutFile %ToolFolder%\msr.exe.tmp" || exit /b -1
     move /y "%ToolFolder%\msr.exe.tmp" "%ToolFolder%\msr.exe"  || exit /b -1
 )
 
 if not exist "%ToolFolder%\nin.exe" (
-    wget "https://raw.githubusercontent.com/qualiu/msr/master/tools/nin.exe" -O "%ToolFolder%\nin.exe.tmp" || exit /b -1
+    powershell "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Invoke-WebRequest -Uri https://github.com/qualiu/msr/blob/master/tools/nin.exe?raw=true -OutFile %ToolFolder%\nin.exe.tmp" || exit /b -1
     move /y "%ToolFolder%\nin.exe.tmp" "%ToolFolder%\nin.exe"  || exit /b -1
 )
 

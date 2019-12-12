@@ -15,7 +15,7 @@ for /f "tokens=*" %%a in ('where notepad.exe ^| msr -x \ -o / -aPAC -T 1') do (
 )
 
 :: Configure beyond compare
-for /f "tokens=*" %%a in ('where Comp.exe /q 2^>nul ^| msr -x \ -o / -aPAC -T 1') do (
+for /f "tokens=*" %%a in ('where BCompare.exe 2^>nul ^| msr -x \ -o / -aPAC -T 1') do (
     echo git config --global diff.tool bc4 | msr -XM
     echo git config --global difftool.bc4.cmd "\"%%a\" \"$LOCAL\" \"$REMOTE\"" | msr -XM || exit /b -1
     echo git config --global difftool.prompt false | msr -XM
